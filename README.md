@@ -25,7 +25,7 @@ or if you're as lazy as I am, double-clicking `run_review.sh`
 This will yield a command prompt that marches through your Weekly Review text (progressing as you hit the Enter key)
 
 
-## Configuration
+## `config/`
 
 The basic idea of this tool is that you've got items that you want to think about with some arbitrary frequency. These items can be categorized into arbitrarily-many different groups and that you sit down to take inventory about once a week.
 
@@ -37,9 +37,9 @@ I've found that re-articulating and reflecting on what makes me happy has had a 
 
 Edit this file as you see fit-- I'd encourage you to add/remove things as they start to become more/less important to you.
 
-### `utils.py`
+### `intro.txt` and `reminder.txt`
 
-This file does all of the heavy-lifting and contains two methods `_print_intro()` and `_print_reminder()` that I use to help me get into the context of the Weekly Review that I'm about to do. Easy to remove if it's superflous to your needs.
+I use these files to help me get into the context of the Weekly Review that I'm about to do. Easy to remove from `utils.print_boilerplate()` if it's superflous to your needs.
 
 ### `weekly_review.csv`
 

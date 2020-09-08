@@ -5,7 +5,12 @@ from itertools import cycle, islice
 
 import pandas as pd
 
-from conf import HAPPINESS_FPATH, FIRST_DAY
+
+FIRST_DAY = "2016-07-27"  # arbitrary
+INTRO_PATH = "./config/intro.txt"
+HAPPINESS_PATH = "./config/happy.txt"
+REMINDER_PATH = "./config/reminder.txt"
+CSV_PATH = "./config/weekly_review.csv"
 
 
 def spread_data():
@@ -16,8 +21,7 @@ def spread_data():
     This counts groups off by their week frequency and allocates
     more-or-less evenly
     """
-    csv_path = "weekly_review.csv"
-    df = pd.read_csv(csv_path)
+    df = pd.read_csv(CSV_PATH)
 
     for freq, group in df.groupby("WeekFrq"):
         if freq == 1:
@@ -30,43 +34,25 @@ def spread_data():
 
     df = df.sort_values(by=["Group", "Title"])
 
-    df.to_csv(csv_path, index=False)
+    df.to_csv(CSV_PATH, index=False)
 
 
-def _print_intro():
+def _print_from_txt(fpath: str, with_stops=False):
     """
-    Simple print statements, separated by input() calls so user has
-    to think about each point
+    Print the text from a given fpath.
+
+    `with_stops` enforces uncaptured press of Enter key before
+    progressing to next line
     """
-    print("\n" * 3)
 
-    print("Before you do anything:\n")
-    input("Calendar out your personal time.")
-    input("Calendar out your work time.")
-    input("Read the last couple entries in the ol' journal")
-    input("What are you happy about this last week?\n\n")
+    print("\n")
 
-
-def _print_happiness():
-    """
-    Print the contents of the file conf.HAPPINESS_PATH points to
-    """
-    with open(HAPPINESS_FPATH) as f:
-        print(f.read())
-
-    print("\n" * 3)
-
-
-def _print_reminder():
-    """
-    More print/input() calls before the meat of the script kicks off
-    """
-    print("Great. Now a couple notes:\n")
-    print("Schedule all of your texts and messages.")
-    input(
-        "This is time for reflection,"
-        " not struggling to feel like you're accomplishing things."
-    )
+    with open(fpath) as f:
+        if with_stops:
+            for line in f:
+                input(line)
+        else:
+            print(f.read())
 
     print("\n" * 2)
 
@@ -76,9 +62,10 @@ def print_boilerplate():
     Chain together the last 3 functions for consistent print before
     print_review_items()
     """
-    _print_intro()
-    _print_happiness()
-    _print_reminder()
+    _print_from_txt(INTRO_PATH, with_stops=True)
+    _print_from_txt(HAPPINESS_PATH, with_stops=False)
+    input()
+    _print_from_txt(REMINDER_PATH, with_stops=False)
 
 
 def get_this_weeks_monday():
@@ -126,7 +113,7 @@ def print_review_items():
     """
     week_diff = get_week_diff()
 
-    with open("weekly_review.csv") as f:
+    with open(CSV_PATH) as f:
         items = {}
         f.readline()  # skip header
 
