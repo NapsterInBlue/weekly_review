@@ -22,6 +22,7 @@ def spread_data():
     more-or-less evenly
     """
     df = pd.read_csv(CSV_PATH)
+    df['Group'] = df['Group'].str.strip()
 
     for freq, group in df.groupby("WeekFrq"):
         if freq == 1:
