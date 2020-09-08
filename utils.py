@@ -20,8 +20,12 @@ def spread_data():
     df = pd.read_csv(csv_path)
 
     for freq, group in df.groupby("WeekFrq"):
-        # e.g. 3 wk freq -> 0, 1, 2, 0, 1, 2, 0, 1, 2, ...
-        countoff = list(islice(cycle([0, freq - 1]), len(group)))
+        if freq == 1:
+            countoff = [0] * len(group)
+        else:
+            # e.g. 3 wk freq -> 0, 1, 2, 0, 1, 2, 0, 1, 2, ...
+            countoff = list(islice(cycle(range(0, freq)), len(group)))
+
         df.loc[group.index, "Offset"] = pd.Series(countoff, index=group.index)
 
     df = df.sort_values(by=["Group", "Title"])
