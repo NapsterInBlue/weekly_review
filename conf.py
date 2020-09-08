@@ -1,0 +1,3 @@
+FIRST_DAY = "2016-07-27"
+HAPPINESS_FPATH = "happy.txt"
+
