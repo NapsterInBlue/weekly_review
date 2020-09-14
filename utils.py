@@ -78,7 +78,7 @@ def get_this_weeks_monday():
         next_monday = today + relativedelta(weekday=0)
         this_monday = next_monday - timedelta(days=7)
     else:
-        this_monday = today()
+        this_monday = today
 
     return this_monday
 
