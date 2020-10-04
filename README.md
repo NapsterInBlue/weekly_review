@@ -24,6 +24,8 @@ or if you're as lazy as I am, double-clicking `run_review.sh`
 
 This will yield a command prompt that marches through your Weekly Review text (progressing as you hit the Enter key)
 
+![image](docs/example.PNG)
+
 
 ## `config/`
 
